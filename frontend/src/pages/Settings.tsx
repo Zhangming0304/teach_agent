@@ -6,10 +6,10 @@ import {
 import { fetchConfig, saveConfig, testConfig, normalizeUrl, validateKey, fetchModels } from "../api/client";
 
 const presets = [
-  { name: "DeepSeek",  endpoint: "https://api.deepseek.com/v1",                          model: "deepseek-chat" },
-  { name: "通义千问",   endpoint: "https://dashscope.aliyuncs.com/compatible-mode/v1",    model: "qwen-vl-max" },
-  { name: "智谱清言",   endpoint: "https://open.bigmodel.cn/api/paas/v4",                 model: "glm-4v" },
-  { name: "Moonshot",  endpoint: "https://api.moonshot.cn/v1",                            model: "moonshot-v1-auto" },
+  { name: "通义千问（推荐）", endpoint: "https://dashscope.aliyuncs.com/compatible-mode/v1", model: "qwen3.6-plus" },
+  { name: "DeepSeek",        endpoint: "https://api.deepseek.com/v1",                       model: "deepseek-chat" },
+  { name: "智谱清言",         endpoint: "https://open.bigmodel.cn/api/paas/v4",              model: "glm-5.1" },
+  { name: "Moonshot",        endpoint: "https://api.moonshot.cn/v1",                         model: "moonshot-v1-auto" },
 ];
 
 export default function SettingsPage() {

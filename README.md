@@ -19,21 +19,13 @@
 
 ## 🏗️ 技术架构
 
-```
-┌──────────────────────────────────────────────┐
-│           前端（React + TypeScript + Vite）     │
-│  学生管理 │ 作业批改 │ 错题分析 │ 练习生成      │
-│     思维链可视化组件  │  智能体动作可视化组件     │
-├──────────────────────────────────────────────┤
-│            REST API + SSE（流式推送）           │
-├──────────────────────────────────────────────┤
-│         后端（Python FastAPI + SQLite）         │
-│  LLM 服务 │ 批改引擎 │ 出题引擎 │ PDF 生成     │
-│              文件解析器 │ SQLite 数据库          │
-├──────────────────────────────────────────────┤
-│    国产大模型 API（DeepSeek / 通义千问 / 智谱）   │
-└──────────────────────────────────────────────┘
-```
+![系统架构图](docs/architecture.jpg)
+
+---
+
+## 🔄 核心业务闭环
+
+![核心业务闭环流程图](docs/workflow.jpg)
 
 ---
 
@@ -71,11 +63,13 @@ bash start.sh
 
 首次使用需在侧边栏底部「API 配置」页面配置国产大模型的 API 密钥：
 
-| 服务商 | API 端点 | 推荐模型 |
-|--------|---------|---------|
-| DeepSeek | `https://api.deepseek.com/v1` | deepseek-chat |
-| 通义千问 | `https://dashscope.aliyuncs.com/compatible-mode/v1` | qwen-vl-max |
-| 智谱清言 | `https://open.bigmodel.cn/api/paas/v4` | glm-4v |
+| 服务商 | API 端点 | 推荐模型 | 备注 |
+|--------|---------|---------|------|
+| 通义千问 | `https://dashscope.aliyuncs.com/compatible-mode/v1` | **qwen3.6-plus** | ⭐ 推荐，多模态大模型，支持图片识别 |
+| DeepSeek | `https://api.deepseek.com/v1` | deepseek-chat | 纯文本批改推荐 |
+| 智谱清言 | `https://open.bigmodel.cn/api/paas/v4` | glm-5.1 | 多模态支持 |
+
+> 💡 手写作业图片批改建议使用**通义千问 qwen3.6-plus**，它是多模态大模型，图片识别效果最佳。
 
 系统支持任何兼容 OpenAI 格式的国产大模型 API。
 
@@ -112,6 +106,7 @@ teach_agent/
 │           ├── ErrorAnalysis.tsx # 错题分析与学情画像
 │           ├── PracticeGenerator.tsx # 分层练习生成
 │           └── Settings.tsx    # API 配置
+├── docs/                       # 文档图片
 └── 学生作业-示例.jpg             # 示例作业图片（可用于测试）
 ```
 
@@ -119,7 +114,7 @@ teach_agent/
 
 ## 🔑 核心设计
 
-### 提示词工程
+### 提示词工程（Prompt Engineering）
 
 系统的核心在于两套精心设计的提示词模板：
 
@@ -140,7 +135,7 @@ teach_agent/
 
 通过 `file_parser.py` 模块自动判断文件类型并走不同处理路径：
 - **图片**（JPG/PNG/WebP）→ 多模态视觉识别
-- **PDF 扫描件**（页面文字少于20字）→ 导出为图片，走视觉识别
+- **PDF 扫描件** → 导出为图片，走视觉识别
 - **PDF 文字件** → 提取文字，走纯文本批改
 - **Word 文档**（.docx）→ 提取文字，走纯文本批改
 - **纯文本**（.txt）→ 直接批改
@@ -156,7 +151,8 @@ teach_agent/
 ## 🙏 致谢
 
 本项目借助以下国产大模型和开源技术构建：
+- [通义千问](https://tongyi.aliyun.com/) — 阿里云多模态大模型（推荐）
 - [DeepSeek](https://www.deepseek.com/) — 国产大语言模型
-- [通义千问](https://tongyi.aliyun.com/) — 阿里云大模型
+- [智谱清言](https://open.bigmodel.cn/) — 智谱 AI 大模型
 - [React](https://react.dev/) — 前端框架
 - [FastAPI](https://fastapi.tiangolo.com/) — Python Web 框架
