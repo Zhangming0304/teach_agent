@@ -17,6 +17,14 @@
 
 ---
 
+## 📸 界面预览
+
+| 工作台 | 作业批改 | 错题分析与学情画像 |
+|:---:|:---:|:---:|
+| ![工作台](docs/screenshot-dashboard.jpg) | ![作业批改](docs/screenshot-grading.jpg) | ![错题分析](docs/screenshot-analysis.jpg) |
+
+---
+
 ## 🏗️ 技术架构
 
 ![系统架构图](docs/architecture.jpg)
